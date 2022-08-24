@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/Control.MiniMap.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title>Habilitación de acceso a servidumbre red AS en quebrada e inspección de cámaras, Idahue</title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/ServidumbreredAShabilitada_1.js"></script>
+        <script src="data/Direccindeflujo_2.js"></script>
+        <script src="data/ColectorAS_3.js"></script>
+        <script src="data/CmarasAScolmatadas_4.js"></script>
+        <script src="data/CmarasAS_5.js"></script>
+        <script src="js/Control.MiniMap.min.js" type="text/javascript"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-36.85070130872128,-73.0797889128913],[-36.84944178519446,-73.07668775463779]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GooleSatellite_0');
+        map.getPane('pane_GooleSatellite_0').style.zIndex = 400;
+        var layer_GooleSatellite_0 = L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
+            pane: 'pane_GooleSatellite_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_GooleSatellite_0;
+        map.addLayer(layer_GooleSatellite_0);
+        function pop_ServidumbreredAShabilitada_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBSERVACIONES'] !== null ? autolinker.link(feature.properties['OBSERVACIONES'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FECHA INICIO FAENA</th>\
+                        <td>' + (feature.properties['FECHA INICIO FAENA'] !== null ? autolinker.link(feature.properties['FECHA INICIO FAENA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FECHA TERMINO FAENA</th>\
+                        <td>' + (feature.properties['FECHA TERMINO FAENA'] !== null ? autolinker.link(feature.properties['FECHA TERMINO FAENA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FOTOGRAFIA 1'] !== null ? '<img src="images/' + String(feature.properties['FOTOGRAFIA 1']).replace(/[\\\/:]/g, '_').trim() + '" '+ 'class=popupImage' + '>' : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FOTOGRAFIA 2'] !== null ? '<img src="images/' + String(feature.properties['FOTOGRAFIA 2']).replace(/[\\\/:]/g, '_').trim() + '" '+ 'class=popupImage' + '>' : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FOTOGRAFIA 3'] !== null ? '<img src="images/' + String(feature.properties['FOTOGRAFIA 3']).replace(/[\\\/:]/g, '_').trim() + '" '+ 'class=popupImage' + '>' : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FOTOGRAFIA 4'] !== null ? '<img src="images/' + String(feature.properties['FOTOGRAFIA 4']).replace(/[\\\/:]/g, '_').trim() + '" '+ 'class=popupImage' + '>' : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBSERVACIONES 2'] !== null ? autolinker.link(feature.properties['OBSERVACIONES 2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FOTOGRAFIA 5'] !== null ? '<img src="images/' + String(feature.properties['FOTOGRAFIA 5']).replace(/[\\\/:]/g, '_').trim() + '" '+ 'class=popupImage' + '>' : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FOTOGRAFIA 6'] !== null ? '<img src="images/' + String(feature.properties['FOTOGRAFIA 6']).replace(/[\\\/:]/g, '_').trim() + '" '+ 'class=popupImage' + '>' : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FOTOGRAFIA 7'] !== null ? '<img src="images/' + String(feature.properties['FOTOGRAFIA 7']).replace(/[\\\/:]/g, '_').trim() + '" '+ 'class=popupImage' + '>' : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FOTOGRAFIA 8'] !== null ? '<img src="images/' + String(feature.properties['FOTOGRAFIA 8']).replace(/[\\\/:]/g, '_').trim() + '" '+ 'class=popupImage' + '>' : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ENLACE VIDEO 1</th>\
+                        <td>' + (feature.properties['ENLACE VIDEO 1'] !== null ? autolinker.link(feature.properties['ENLACE VIDEO 1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ENLACE VIDEO 2</th>\
+                        <td>' + (feature.properties['ENLACE VIDEO 2'] !== null ? autolinker.link(feature.properties['ENLACE VIDEO 2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ENLACE A REGISTRO FOTOGRÁFICO AÉREO</th>\
+                        <td>' + (feature.properties['ENLACE A REGISTRO FOTOGRÁFICO AÉREO'] !== null ? autolinker.link(feature.properties['ENLACE A REGISTRO FOTOGRÁFICO AÉREO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LONGITUD SECCIÓN INTERVENIDA (m)</th>\
+                        <td>' + (feature.properties['LONGITUD SECCIÓN INTERVENIDA (m)'] !== null ? autolinker.link(feature.properties['LONGITUD SECCIÓN INTERVENIDA (m)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ANCHO SECCIÓN INTERVENIDA (m)</th>\
+                        <td>' + (feature.properties['ANCHO SECCIÓN INTERVENIDA (m)'] !== null ? autolinker.link(feature.properties['ANCHO SECCIÓN INTERVENIDA (m)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ÁREA TOTAL INTERVENIDA (m2)</th>\
+                        <td>' + (feature.properties['ÁREA TOTAL INTERVENIDA (m)'] !== null ? autolinker.link(feature.properties['ÁREA TOTAL INTERVENIDA (m)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ServidumbreredAShabilitada_1_0() {
+            return {
+                pane: 'pane_ServidumbreredAShabilitada_1',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(28,80,11,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_ServidumbreredAShabilitada_1');
+        map.getPane('pane_ServidumbreredAShabilitada_1').style.zIndex = 401;
+        map.getPane('pane_ServidumbreredAShabilitada_1').style['mix-blend-mode'] = 'normal';
+        var layer_ServidumbreredAShabilitada_1 = new L.geoJson(json_ServidumbreredAShabilitada_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ServidumbreredAShabilitada_1',
+            layerName: 'layer_ServidumbreredAShabilitada_1',
+            pane: 'pane_ServidumbreredAShabilitada_1',
+            onEachFeature: pop_ServidumbreredAShabilitada_1,
+            style: style_ServidumbreredAShabilitada_1_0,
+        });
+        bounds_group.addLayer(layer_ServidumbreredAShabilitada_1);
+        map.addLayer(layer_ServidumbreredAShabilitada_1);
+        function pop_Direccindeflujo_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TIPO'] !== null ? autolinker.link(feature.properties['TIPO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Direccindeflujo_2_0(feature) {
+            switch(String(feature.properties['TIPO'])) {
+                case 'DETENIDO':
+                    return {
+                pane: 'pane_Direccindeflujo_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,0,0,1.0)',
+                interactive: false,
+            }
+                    break;
+                case 'NORMAL':
+                    return {
+                pane: 'pane_Direccindeflujo_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(65,122,235,1.0)',
+                interactive: false,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Direccindeflujo_2');
+        map.getPane('pane_Direccindeflujo_2').style.zIndex = 402;
+        map.getPane('pane_Direccindeflujo_2').style['mix-blend-mode'] = 'normal';
+        var layer_Direccindeflujo_2 = new L.geoJson(json_Direccindeflujo_2, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_Direccindeflujo_2',
+            layerName: 'layer_Direccindeflujo_2',
+            pane: 'pane_Direccindeflujo_2',
+            onEachFeature: pop_Direccindeflujo_2,
+            style: style_Direccindeflujo_2_0,
+        });
+        bounds_group.addLayer(layer_Direccindeflujo_2);
+        map.addLayer(layer_Direccindeflujo_2);
+        function pop_ColectorAS_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">DENOMINACIÓN</th>\
+                        <td>' + (feature.properties['DENOMINACION'] !== null ? autolinker.link(feature.properties['DENOMINACION'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LONGITUD (m)</th>\
+                        <td>' + (feature.properties['LONGITUD'] !== null ? autolinker.link(feature.properties['LONGITUD'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ESTADO DETECCIÓN</th>\
+                        <td>' + (feature.properties['ESTADO'] !== null ? autolinker.link(feature.properties['ESTADO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ColectorAS_3_0(feature) {
+            switch(String(feature.properties['ESTADO'])) {
+                case 'VERIFICADO':
+                    return {
+                pane: 'pane_ColectorAS_3',
+                opacity: 1,
+                color: 'rgba(65,122,235,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'INDETERMINADO':
+                    return {
+                pane: 'pane_ColectorAS_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'OBSTRUIDO':
+                    return {
+                pane: 'pane_ColectorAS_3',
+                opacity: 1,
+                color: 'rgba(255,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_ColectorAS_3');
+        map.getPane('pane_ColectorAS_3').style.zIndex = 403;
+        map.getPane('pane_ColectorAS_3').style['mix-blend-mode'] = 'normal';
+        var layer_ColectorAS_3 = new L.geoJson(json_ColectorAS_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ColectorAS_3',
+            layerName: 'layer_ColectorAS_3',
+            pane: 'pane_ColectorAS_3',
+            onEachFeature: pop_ColectorAS_3,
+            style: style_ColectorAS_3_0,
+        });
+        bounds_group.addLayer(layer_ColectorAS_3);
+        map.addLayer(layer_ColectorAS_3);
+        function pop_CmarasAScolmatadas_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CmarasAScolmatadas_4_0() {
+            return {
+                pane: 'pane_CmarasAScolmatadas_4',
+                shape: 'diamond',
+                radius: 10.0,
+                stroke: false,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,113,115,1.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_CmarasAScolmatadas_4');
+        map.getPane('pane_CmarasAScolmatadas_4').style.zIndex = 404;
+        map.getPane('pane_CmarasAScolmatadas_4').style['mix-blend-mode'] = 'normal';
+        var layer_CmarasAScolmatadas_4 = new L.geoJson(json_CmarasAScolmatadas_4, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_CmarasAScolmatadas_4',
+            layerName: 'layer_CmarasAScolmatadas_4',
+            pane: 'pane_CmarasAScolmatadas_4',
+            onEachFeature: pop_CmarasAScolmatadas_4,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_CmarasAScolmatadas_4_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_CmarasAScolmatadas_4);
+        map.addLayer(layer_CmarasAScolmatadas_4);
+        function pop_CmarasAS_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">DENOMINACIÓN</th>\
+                        <td>' + (feature.properties['DENOMINACION'] !== null ? autolinker.link(feature.properties['DENOMINACION'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">x (m)</th>\
+                        <td>' + (feature.properties['x'] !== null ? autolinker.link(feature.properties['x'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">y (m)</th>\
+                        <td>' + (feature.properties['y'] !== null ? autolinker.link(feature.properties['y'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PROFUNDIDAD (m)</th>\
+                        <td>' + (feature.properties['PROFUNDIDAD (m)'] !== null ? autolinker.link(feature.properties['PROFUNDIDAD (m)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ESCALINES (nº)</th>\
+                        <td>' + (feature.properties['ESCALINES'] !== null ? autolinker.link(feature.properties['ESCALINES'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FOTOGRAFÍA 1</th>\
+                        <td>' + (feature.properties['FOTOGRAFIA PANORAMICA'] !== null ? '<img src="images/' + String(feature.properties['FOTOGRAFIA PANORAMICA']).replace(/[\\\/:]/g, '_').trim() + '" '+ 'class=popupImage' + '>' : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FOTOGRAFÍA 2</th>\
+                        <td>' + (feature.properties['FOTOGRAFIA INTERIOR'] !== null ? '<img src="images/' + String(feature.properties['FOTOGRAFIA INTERIOR']).replace(/[\\\/:]/g, '_').trim() + '" '+ 'class=popupImage' + '>' : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ESTADO SUPERFICIAL</th>\
+                        <td>' + (feature.properties['ESTADO'] !== null ? autolinker.link(feature.properties['ESTADO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">OBSERVACIONES</th>\
+                        <td>' + (feature.properties['OBSERVACION'] !== null ? autolinker.link(feature.properties['OBSERVACION'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FOTOGRAFIA_ESTADO_ACTUAL'] !== null ? '<img src="images/' + String(feature.properties['FOTOGRAFIA_ESTADO_ACTUAL']).replace(/[\\\/:]/g, '_').trim() + '" '+ 'class=popupImage' + '>' : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ESTADO INTERIOR A LA ÚLTIMA INSPECCIÓN</th>\
+                        <td>' + (feature.properties['ESTADO_INTERIOR'] !== null ? autolinker.link(feature.properties['ESTADO_INTERIOR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FECHA ÚLTIMA INSPECCIÓN</th>\
+                        <td>' + (feature.properties['ULTIMA_INSPECCION'] !== null ? autolinker.link(feature.properties['ULTIMA_INSPECCION'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CmarasAS_5_0(feature) {
+            switch(String(feature.properties['ULTIMA_INSPECCION'])) {
+                case 'Julio 2022':
+                    return {
+                pane: 'pane_CmarasAS_5',
+                radius: 4.0,
+                stroke: false,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(43,246,12,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Mayo 2022':
+                    return {
+                pane: 'pane_CmarasAS_5',
+                radius: 4.0,
+                stroke: false,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,213,0,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Noviembre 2021':
+                    return {
+                pane: 'pane_CmarasAS_5',
+                radius: 4.0,
+                stroke: false,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(51,152,250,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Octubre 2021':
+                    return {
+                pane: 'pane_CmarasAS_5',
+                radius: 4.0,
+                stroke: false,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(94,255,255,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_CmarasAS_5');
+        map.getPane('pane_CmarasAS_5').style.zIndex = 405;
+        map.getPane('pane_CmarasAS_5').style['mix-blend-mode'] = 'normal';
+        var layer_CmarasAS_5 = new L.geoJson(json_CmarasAS_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_CmarasAS_5',
+            layerName: 'layer_CmarasAS_5',
+            pane: 'pane_CmarasAS_5',
+            onEachFeature: pop_CmarasAS_5,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_CmarasAS_5_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_CmarasAS_5);
+        map.addLayer(layer_CmarasAS_5);
+            var title = new L.Control();
+            title.onAdd = function (map) {
+                this._div = L.DomUtil.create('div', 'info');
+                this.update();
+                return this._div;
+            };
+            title.update = function () {
+                this._div.innerHTML = '<h2>Habilitación de acceso a servidumbre red AS en quebrada e inspección de cámaras, Idahue</h2>';
+            };
+            title.addTo(map);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Cámaras AS<br /><table><tr><td style="text-align: center;"><img src="legend/CmarasAS_5_ÚltimainspecciónenJulio20220.png" /></td><td>Última inspección en Julio 2022</td></tr><tr><td style="text-align: center;"><img src="legend/CmarasAS_5_ÚltimainspecciónenMayo20221.png" /></td><td>Última inspección en Mayo 2022</td></tr><tr><td style="text-align: center;"><img src="legend/CmarasAS_5_ÚltimainspecciónenNoviembre20212.png" /></td><td>Última inspección en Noviembre 2021</td></tr><tr><td style="text-align: center;"><img src="legend/CmarasAS_5_ÚltimainspecciónenOctubre20213.png" /></td><td>Última inspección en Octubre 2021</td></tr></table>': layer_CmarasAS_5,'<img src="legend/CmarasAScolmatadas_4.png" /> Cámaras AS colmatadas': layer_CmarasAScolmatadas_4,'Colector AS<br /><table><tr><td style="text-align: center;"><img src="legend/ColectorAS_3_Secciónverificada0.png" /></td><td>Sección verificada</td></tr><tr><td style="text-align: center;"><img src="legend/ColectorAS_3_Seccióninferida1.png" /></td><td>Sección inferida</td></tr><tr><td style="text-align: center;"><img src="legend/ColectorAS_3_Secciónobstruida2.png" /></td><td>Sección obstruida</td></tr></table>': layer_ColectorAS_3,'Dirección de flujo<br /><table><tr><td style="text-align: center;"><img src="legend/Direccindeflujo_2_Flujodetenido0.png" /></td><td>Flujo detenido</td></tr><tr><td style="text-align: center;"><img src="legend/Direccindeflujo_2_Flujonormal1.png" /></td><td>Flujo normal</td></tr></table>': layer_Direccindeflujo_2,'<img src="legend/ServidumbreredAShabilitada_1.png" /> Servidumbre red AS habilitada': layer_ServidumbreredAShabilitada_1,"Goole Satellite": layer_GooleSatellite_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_ColectorAS_3.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['DENOMINACION'] !== null?String('<div style="color: #ffffff; font-size: 6pt; font-family: \'Liberation Sans\', sans-serif;">' + layer.feature.properties['DENOMINACION']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_ColectorAS_3'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_CmarasAS_5.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['DENOMINACION'] !== null?String('<div style="color: #ffffff; font-size: 7pt; font-weight: bold; font-family: \'Liberation Sans\', sans-serif;">' + layer.feature.properties['DENOMINACION']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_CmarasAS_5'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_ColectorAS_3,layer_CmarasAS_5]);
+        map.on("zoomend", function(){
+            resetLabels([layer_ColectorAS_3,layer_CmarasAS_5]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_ColectorAS_3,layer_CmarasAS_5]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_ColectorAS_3,layer_CmarasAS_5]);
+        });
+
+        L.Control.textbox = L.Control.extend({
+		onAdd: function(map) {
+			
+		var text = L.DomUtil.create('div');
+		text.id = "info_text";
+		text.innerHTML = 
+        "<p align=justify> <b>MODO DE USO:" +"</b>"+  "<br>" +
+        " El mapa es interactivo. Presione sobre un elemento para desplegar su cuadro informativo. En el mapa se representan:<br>1. Parte de la red de aguas servidas emplazada en la ladera este de la Laguna Llacolén, Idahue y; 2. El área de servidumbre de la red AS habilitada (mediante limpieza y despeje de árboles y maleza arbustiva) en la quebrada aledaña a Camino de la Bahía. SCR del mapa: UTM 18 H/EPSG:32718. <br>" 
+        +"<br>"  +
+        "La red de aguas servidas presentada en el mapa ha sido levantada e inspeccionada en 3 etapas; la última representada sólo en el mapa, compuesta por las cámaras AS inspeccionadas en mayo del 2022, mientras que las dos primeras se ejecutaron a fines del 2021, quedando registradas en 2 informes, referidos a continuación:<br>" +
+        "1. Inspección y limpieza red AS ETAPA 1, Idahue, noviembre 2021: <a href=https://drive.google.com/file/d/138rUntOlIVMAl4DDiQzCENpDSthiaVkr/view?usp=sharing“ target=_blank rel=noopener noreferrer>Haz click aquí para acceder al documento</a> </b><br>" +   
+        "2. Desobstrucción red AS aledaña a viviendas, Idahue, octubre 2021: <a href=https://drive.google.com/file/d/17xqPNAjb5qrGCICN-zVJX6-Q7nPTEc8W/view?usp=sharing“ target=_blank rel=noopener noreferrer>Haz click aquí para acceder al documento</a>"  +  "<br>" +
+        "<p align=justify> <b>RESULTADOS:" +"</b>"+"<br>" +
+        "La servidumbre emplazada en la quebrada hacia aguas abajo de CAM1 quedó despejada, quedando todas las cámaras descubiertas y visibles en superficie (entre CAM2 y CAM5). Todas las cámaras entre CAM1 y CAM4 operan con normalidad. COL20 obstrido, por lo que CAM16, CAM17, CAM18, CAM19, CAM20 Y CAM5 están colmatadas colmatadas; se requiere desobstrucción. Se descubrieron 5 cámaras en la quebrada entre Camino de la Bahía y Circunvalación Llacolén; red queda operativa (inicialmente se encontraba obstruida entre CAM34 y CAM35). Existe un tramo de la red AS no descubierto entre CAM35 y CAM36. No se observan rebalses."
+            return text;
+		},
+
+		onRemove: function(map) {
+			// Nothing to do here
+		}
+	    });
+	    L.control.textbox = function(opts) { return new L.Control.textbox(opts);}
+	    L.control.textbox({ position: 'bottomleft' }).addTo(map);
+
+        // Overview mini map
+        // carga un mapa base (WMS) en el objeto previamente creado	
+        var osmBase = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap'
+        });
+
+        var miniMap = new L.Control.MiniMap(osmBase, {
+            toggleDisplay: true,
+            minimized: false,
+            position: 'bottomright',
+            width: 150,
+            height: 150,
+        }).addTo(map);
+
+        //add scale bar to map
+        L.control.scale({
+        position: 'bottomleft',
+        metric: true,
+        imperial: false,
+        maxWidth: 400,
+        }).addTo(map);
+
+              //Centra el popup
+        map.on('popupopen', function(e) {
+            var px = map.project(e.popup._latlng); // find the pixel location on the map where the popup anchor is
+            px.x -= (e.popup._container.clientHeight/3-80) // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
+            px.y -= (e.popup._container.clientHeight/2+80) // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
+            map.panTo(map.unproject(px),{animate: true}); // pan to new center
+            });
+        </script>
+    </body>
+</html>
